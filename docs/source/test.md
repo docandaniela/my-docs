@@ -2,7 +2,7 @@
 
 Here's a simple flow:
 
-```mermaid
+```{mermaid}
 graph TD
     A[Start] --> B{Is it working?}
     B -->|Yes| C[Great!]
