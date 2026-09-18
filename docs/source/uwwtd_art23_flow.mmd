@@ -1,0 +1,40 @@
+flowchart TD
+    Start(["Start: Prepare National Implementation Programme (NIP)<br/>Art. 23 reporting"]) --> Contact["Fill in Contact table"]
+    Contact --> Assess{"Fully compliant with<br/>Art. 3-8?"}
+
+    Assess -->|Yes| MSOnly["Complete MSSummary only"]
+    MSOnly --> Submit(["Submit NIP"])
+
+    Assess -->|No| MSFull["Complete MSSummary<br/>self-assessment"]
+    MSFull --> DerogQ{"Requesting deadline<br/>extension?<br/>(Art. 3-2, 6-3, 6-4, 7-4)"}
+
+    DerogQ -->|Yes| Derogation["Complete Derogation table"]
+    DerogQ -->|No| SkipDerog["Skip Derogation table"]
+
+    Derogation --> PlantQ{"Non-compliant or<br/>pending-deadline<br/>treatment plants?"}
+    SkipDerog --> PlantQ
+
+    PlantQ -->|Yes| UWWTP["List plants in UWWTP table"]
+    PlantQ -->|No| SkipUWWTP["Skip UWWTP table"]
+
+    UWWTP --> AggQ{"Non-compliant or<br/>pending-deadline<br/>agglomerations?"}
+    SkipUWWTP --> AggQ
+
+    AggQ -->|Yes| Agglomeration["List agglomerations in<br/>Agglomeration table"]
+    AggQ -->|No| SkipAgg["Skip Agglomeration table"]
+
+    Agglomeration --> InvQ{"Planned investments not yet<br/>allocated to a specific<br/>plant or agglomeration?"}
+    SkipAgg --> InvQ
+
+    InvQ -->|Yes| OtherInvestment["Report aggregated amounts<br/>in OtherInvestment table"]
+    InvQ -->|No| SkipInv["Skip OtherInvestment table"]
+
+    OtherInvestment --> Total["Calculate Total MS Investment<br/>= Sum UWWTPs + Sum Agglos + OtherInvestments"]
+    SkipInv --> Total
+
+    Total --> MonQ{"Monitoring data available<br/>for listed plants?"}
+    MonQ -->|Yes| Monitoring["Complete MonitoringResults<br/>linked via uwwCode"]
+    MonQ -->|No| SkipMon["Skip MonitoringResults table"]
+
+    Monitoring --> Submit
+    SkipMon --> Submit
