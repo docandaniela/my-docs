@@ -1,0 +1,16 @@
+flowchart TD
+    NIP["National Implementation Programme<br/>(Art. 23 reporting)"] --> Contact["Contact<br/>reporting contact details"]
+    NIP --> MSSummary["MSSummary<br/>MS self-assessment of compliance"]
+
+    MSSummary -->|Fully compliant with Art. 3-8| Done["No further tables required"]
+    MSSummary -->|Not fully compliant| Derogation["Derogation<br/>requested deadline extensions"]
+    MSSummary -->|Not fully compliant| UWWTP["UWWTP<br/>non-compliant / pending treatment plants"]
+    MSSummary -->|Not fully compliant| Agglomeration["Agglomeration<br/>non-compliant / pending agglomerations"]
+    MSSummary -->|Not fully compliant| OtherInvestment["OtherInvestment<br/>unallocated planned investments"]
+
+    UWWTP -->|linked via uwwCode| MonitoringResults["MonitoringResults<br/>pollutant / performance data"]
+
+    UWWTP --> Total["Total MS Investment"]
+    Agglomeration --> Total
+    OtherInvestment --> Total
+    Total["Total MS Investment<br/>= Sum UWWTPs + Sum Agglos + OtherInvestments"]
