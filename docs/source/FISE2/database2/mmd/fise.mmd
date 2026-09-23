@@ -1,0 +1,234 @@
+erDiagram
+    Metadata {
+        nvarchar(max) resourceID
+        nvarchar(max) resourceTitle
+        nvarchar(max) resourceDescription
+        nvarchar(max) resourceLanguage
+        nvarchar(max) contentType
+        nvarchar(max) crs
+        nvarchar(max) resourceURL
+        nvarchar(max) catalogServiceURL
+        nvarchar(max) searchFilterType
+        nvarchar(max) searchFilterValue
+        nvarchar(max) topic
+        nvarchar(max) levelNUTS
+        nvarchar(max) organisationName
+        nvarchar(max) organisationEmail
+        nvarchar(max) organisationWebpage
+        datetime datePublished
+        datetime dateStartCollection
+        datetime dateEndCollection
+        datetime dateNextUpdate
+        nvarchar(max) updateFrequency
+        nvarchar(max) keywords
+        nvarchar(max) legalInstrument
+        nvarchar(max) addInfo
+        nvarchar(max) fileUpload
+        nvarchar(5) rn3_dataProviderCode
+        nvarchar(100) rn3_recordId
+        int rn3_snapshotId
+    }
+    AttachmentFilesMapping {
+        int obligationId
+        bigint dataflowId
+        nvarchar(255) dataflowName
+        bigint dataCollectionId
+        nvarchar(255) attachment_tableName_rn3
+        nvarchar(255) attachment_tableName_sql
+        nvarchar(255) attachment_fieldName
+        nvarchar(100) rn3_dataProviderCode
+        bigint rn3_snapshotId
+        nvarchar(50) rn3_recordId
+        nvarchar(255) attachment_fileName
+        nvarchar(2000) attachment_zipFilePath
+    }
+    CRS {
+        nvarchar(150) notation PK
+        nvarchar(400) label
+        nvarchar(4000) definition
+        nvarchar(500) URI
+        nvarchar(4000) remarks
+    }
+    ContentType {
+        nvarchar(150) notation PK
+        nvarchar(400) label
+        nvarchar(4000) definition
+        nvarchar(500) URI
+        nvarchar(4000) remarks
+    }
+    DataCollection {
+        bigint dataCollectionId
+        nvarchar(1000) dataSetName
+        datetime creationDate
+        datetime dueDate
+        nvarchar(1000) datasetSchema
+        nvarchar(1000) status
+        bigint dataflowId FK
+        datetime recordLastModified
+    }
+    Dataflow {
+        bigint dataflowId PK
+        nvarchar(4000) name
+        nvarchar(4000) description
+        datetime deadlineDate
+        bit releasable
+        int obligationId
+        bit harvestMetadata
+        nvarchar(100) apiKey
+        nvarchar(max) json
+        datetime recordLastModified
+        nvarchar(100) obligationScope
+        nvarchar(100) obligationAlias
+        nvarchar(max) obligationDisclaimerText
+        bit manualAcceptance
+    }
+    DataflowReferenceTables {
+        int obligationId
+        bigint dataflowId
+        nvarchar(255) dataflowName
+        bigint datasetId
+        nvarchar(255) datasetName
+        nvarchar(255) table_RN3_Name
+        nvarchar(255) table_SQL_reference_DatabaseConnection
+        nvarchar(255) table_SQL_reference_Database
+        nvarchar(255) table_SQL_reference_Schema
+        nvarchar(255) table_SQL_reference_Name
+        int table_SQL_reference_Contains_Geometry
+        nvarchar(255) table_SQL_reference_OrderBy
+    }
+    DataflowTables {
+        int obligationId
+        bigint dataflowId
+        nvarchar(255) dataflowName
+        bigint dataCollectionId
+        nvarchar(255) table_RN3_Name
+        nvarchar(255) table_SQL_data_DatabaseConnection
+        nvarchar(255) table_SQL_data_Database
+        nvarchar(255) table_SQL_data_Schema
+        nvarchar(255) table_SQL_data_Name
+        nvarchar(255) table_SQL_template_DatabaseConnection
+        nvarchar(255) table_SQL_template_Database
+        nvarchar(255) table_SQL_template_Schema
+        nvarchar(255) table_SQL_template_Name
+        bit flag_keep_geojson
+        bit flag_update_geometry
+    }
+    DataProvider {
+        int dataProviderId
+        varchar(5) dataProviderCode
+        nvarchar(100) dataProviderName
+        varchar(5) countryCode
+        nvarchar(100) countryName
+        nvarchar(50) eeaGroup
+        nvarchar(50) eurostatGroup
+    }
+    DesignDataset {
+        bigint datasetId
+        nvarchar(1000) dataSetName
+        datetime creationDate
+        nvarchar(1000) datasetSchema
+        nvarchar(1000) status
+        bigint dataflowId FK
+        nvarchar(max) datasetSchemaJson
+    }
+    EUDataset {
+        bigint datasetId
+        nvarchar(1000) dataSetName
+        datetime creationDate
+        nvarchar(1000) datasetSchema
+        nvarchar(1000) status
+        bigint dataflowId FK
+    }
+    HarvestingParameters {
+        int obligationId
+        bigint dataflowId
+        nvarchar(255) dataflowName
+        bigint dataCollectionId
+        nvarchar(255) metadata_DatabaseConnection
+        nvarchar(255) metadata_Database
+        nvarchar(255) metadata_Schema
+        nvarchar(255) metadata_Table_Dataflow
+        nvarchar(255) metadata_Table_DataCollection
+        nvarchar(255) metadata_Table_HistoricRelease
+        nvarchar(255) metadata_Table_ReportingDataset
+        nvarchar(255) dataflowTables_DatabaseConnection
+        nvarchar(255) dataflowTables_Database
+        nvarchar(255) dataflowTables_Schema
+        nvarchar(255) dataflowTables_Table
+        nvarchar(255) harvestingJobs_DatabaseConnection
+        nvarchar(255) harvestingJobs_Database
+        nvarchar(255) harvestingJobs_Schema
+        nvarchar(255) harvestingJobs_Table
+        nvarchar(500) attachmentParentPath
+        nvarchar(255) attachmentHarvestingJobs_Table
+    }
+    HistoricRelease {
+        bigint snapshotId
+        nvarchar(1000) datasetName
+        datetime dateReleased
+        nvarchar(100) dataProviderCode
+        bit dcrelease
+        bit eurelease
+        bit restrictFromPublic
+        bigint datasetId
+        bigint dataCollectionId
+        bigint dataflowId FK
+        datetime recordLastModified
+    }
+    HistoricRelease_statusLog {
+        bigint snapshotId
+        datetime dateReleased
+        nvarchar(100) dataProviderCode
+        bigint datasetId
+        bigint dataCollectionId
+        bigint dataflowId
+        nvarchar(100) status
+        datetime recordLastModified
+    }
+    ReferenceDataset {
+        bigint datasetId
+        nvarchar(1000) dataSetName
+        datetime creationDate
+        nvarchar(1000) datasetSchema
+        nvarchar(1000) publicFileName
+        nvarchar(1000) status
+        bit updatable
+        bigint dataflowId FK
+    }
+    ReportingDataset {
+        bigint datasetId
+        nvarchar(1000) dataSetName
+        datetime creationDate
+        bit isReleased
+        datetime dateReleased
+        int dataProviderId
+        nvarchar(1000) datasetSchema
+        nvarchar(1000) nameDatasetSchema
+        nvarchar(1000) status
+        bit releasing
+        nvarchar(1000) publicFileName
+        bigint dataflowId FK
+        datetime recordLastModified
+    }
+    HarvestingJobs {
+        bigint snapshotId
+        nvarchar(1000) datasetName
+        datetime dateReleased
+        nvarchar(100) dataProviderCode
+        bit dcrelease
+        bit eurelease
+        bit restrictFromPublic
+        bigint datasetId
+        bigint dataCollectionId
+        bigint dataflowId
+        datetime recordLastModified
+        datetime harvestDate
+        int jobId
+        nvarchar(max) jobSummary
+    }
+    Dataflow ||--o{ DataCollection : "dataflowId"
+    Dataflow ||--o{ DesignDataset : "dataflowId"
+    Dataflow ||--o{ EUDataset : "dataflowId"
+    Dataflow ||--o{ HistoricRelease : "dataflowId"
+    Dataflow ||--o{ ReferenceDataset : "dataflowId"
+    Dataflow ||--o{ ReportingDataset : "dataflowId"
