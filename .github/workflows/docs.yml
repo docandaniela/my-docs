@@ -1,11 +1,19 @@
-name: Build and deploy docs
+# This is a GitHub Actions workflow file 
+# designed to automatically build and deploy Sphinx documentation to GitHub Pages.
 
+# The name of the workflow as it appears in the GitHub Actions UI
+name: documentation
+
+# Defines the events that trigger this workflow: 
+# Runs on code pushes, pull requests, and manual triggers (workflow_dispatch)
 on:
   push:
     branches: [main]
-
+    
+# Grants the workflow write permissions to the repository. 
+# This is required so it can push the built HTML to the gh-pages branch later.
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
